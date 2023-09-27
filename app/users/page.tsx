@@ -1,22 +1,22 @@
-import React from "react";
+import Link from "next/link";
+import React, { Suspense } from "react";
+import UserTable from "../components/UserTable";
 
 interface User {
   id: number;
   name: string;
 }
 
-const UsersPage = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const users: User[] = await res.json();
-
+const UsersPage = () => {
   return (
     <>
       <h1>Users</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+      <Link href="/users/new" className="btn">
+        New User
+      </Link>
+      <Suspense fallback={<p>Loading...</p>}>
+        <UserTable />
+      </Suspense>
     </>
   );
 };
